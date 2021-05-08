@@ -2,6 +2,7 @@ package com.kacz.kam.MovieService.movie.controller;
 
 import com.kacz.kam.MovieService.movie.model.Movie;
 import com.kacz.kam.MovieService.movie.service.MovieService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,26 +24,29 @@ public class MovieRestController {
     }
 
     @GetMapping("/movies/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable Long id){
-        return ResponseEntity.ok(movieService.getMovieById(id));
-
+    public ResponseEntity getMovieById(@PathVariable Long id){
+        if(movieService.getMovieById(id)){
+            return ResponseEntity.ok(HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
-
-    @PostMapping("/movies")
-    public ResponseEntity<Movie> addNewMovie(@RequestBody Movie movie){
-
-    }
-
-    @PutMapping("/movies/{id}")
-    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie,
-                                             @PathVariable Long id){
-
-    }
-
-    @DeleteMapping("/movies/{id}")
-    public ResponseEntity<Void> deleteMovie(@PathVariable Long id){
-
-    }
+//
+//    @PostMapping("/movies")
+//    public ResponseEntity<Movie> addNewMovie(@RequestBody Movie movie){
+//
+//    }
+//
+//    @PutMapping("/movies/{id}")
+//    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie,
+//                                             @PathVariable Long id){
+//
+//    }
+//
+//    @DeleteMapping("/movies/{id}")
+//    public ResponseEntity<Void> deleteMovie(@PathVariable Long id){
+//
+//    }
 
 
 
