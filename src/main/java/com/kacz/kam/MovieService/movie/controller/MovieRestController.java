@@ -26,7 +26,7 @@ public class MovieRestController {
     @GetMapping("/movies/{id}")
     public ResponseEntity getMovieById(@PathVariable Long id){
         if(movieService.getMovieById(id)){
-            return ResponseEntity.ok(HttpStatus.ACCEPTED);
+            return ResponseEntity.ok().build();
         }else{
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
