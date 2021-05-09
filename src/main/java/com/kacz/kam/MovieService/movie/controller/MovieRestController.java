@@ -31,11 +31,13 @@ public class MovieRestController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
-//
-//    @PostMapping("/movies")
-//    public ResponseEntity<Movie> addNewMovie(@RequestBody Movie movie){
-//
-//    }
+
+//  TODO: Improve method in MovieService
+    @PostMapping("/movies")
+    public ResponseEntity<Movie> addNewMovie(@RequestBody Movie movie){
+        boolean result = addNewMovie(movie);
+        if()
+    }
 //
 //    @PutMapping("/movies/{id}")
 //    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie,
