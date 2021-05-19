@@ -21,19 +21,18 @@ public class MovieService {
         return id.equals(movie1.getId());
     }
 
-//  TODO: Improve addNewMovie, wrong return type and logic
     public Movie addNewMovie(Movie movie){
-        Long id = movie.getId();
-        String name = movie.getName();
-        MovieCategory movieCategory = movie.getMovieCategory();
-        if (!(id instanceof Long) | !(name instanceof String) | !(movieCategory instanceof MovieCategory)){
-            return false;
-        }else {
-            Movie newMovie = new Movie(id, name, movieCategory);
-            return newMovie;
+            return movie;
         }
+
+    public Movie updateMovie(Movie movie) {
+        return movie;
     }
 
-
-
+    public void delteMovie(Long id){
+    }
 }
+
+
+
+

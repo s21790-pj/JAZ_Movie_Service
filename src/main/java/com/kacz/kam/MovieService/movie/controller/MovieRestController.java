@@ -28,27 +28,26 @@ public class MovieRestController {
         if(movieService.getMovieById(id)){
             return ResponseEntity.ok().build();
         }else{
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 
-//  TODO: Improve method in MovieService
     @PostMapping("/movies")
     public ResponseEntity<Movie> addNewMovie(@RequestBody Movie movie){
-        boolean result = addNewMovie(movie);
-        if()
+        return ResponseEntity.ok(movieService.addNewMovie(movie));
     }
-//
-//    @PutMapping("/movies/{id}")
-//    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie,
-//                                             @PathVariable Long id){
-//
-//    }
-//
-//    @DeleteMapping("/movies/{id}")
-//    public ResponseEntity<Void> deleteMovie(@PathVariable Long id){
-//
-//    }
+
+    @PutMapping("/movies/{id}")
+    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie, @PathVariable Long id){
+        return ResponseEntity.ok(movieService.updateMovie(movie));
+    }
+
+    @DeleteMapping("/movies/{id}")
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long id){
+        movieService.delteMovie(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 
