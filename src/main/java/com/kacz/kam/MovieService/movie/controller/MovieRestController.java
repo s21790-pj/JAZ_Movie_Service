@@ -2,8 +2,8 @@ package com.kacz.kam.MovieService.movie.controller;
 
 import com.kacz.kam.MovieService.movie.model.Movie;
 import com.kacz.kam.MovieService.movie.service.MovieService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,33 +19,42 @@ public class MovieRestController {
     }
 
     @GetMapping("/movies")
-    public ResponseEntity<List<Movie>> getAllMovies(){
-        return ResponseEntity.ok(movieService.getAllMovies());
+    public ResponseEntity<List<Movie>> finaAllMovies() {
+        return ResponseEntity.ok(movieService.findAll());
     }
 
     @GetMapping("/movies/{id}")
-    public ResponseEntity getMovieById(@PathVariable Long id){
-        if(movieService.getMovieById(id)){
-            return ResponseEntity.ok().build();
-        }else{
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Movie> getMovieById(@PathVariable Long id){
+        return ResponseEntity.ok(movieService.findById(id));
     }
 
     @PostMapping("/movies")
-    public ResponseEntity<Movie> addNewMovie(@RequestBody Movie movie){
-        return ResponseEntity.ok(movieService.addNewMovie(movie));
+    public ResponseEntity<Movie> addNewMovie(@RequestBody Movie movie) {
+        return ResponseEntity.ok(movieService.save(movie));
     }
 
     @PutMapping("/movies/{id}")
-    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie, @PathVariable Long id){
-        return ResponseEntity.ok(movieService.updateMovie(movie));
+    public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
+        return ResponseEntity.ok(movieService.updateMovie(id, movie));
+    }
+
+    @PutMapping("/movies/{id}/true")
+    public ResponseEntity<Movie> changeAvailable(@PathVariable Long id) {
+        return ResponseEntity.ok(movieService.changeAvailable(id));
     }
 
     @DeleteMapping("/movies/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id){
-        movieService.delteMovie(id);
+        movieService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+//  TODO: improve searching movie by the name
+    @GetMapping("/movies/search")
+    public List<Movie> search(@RequestParam("movieName") String theName, Model theModel){
+        List<Movie> theMovies = movieService.searchBy(theName);
+        theModel.addAttribute("movies", theMovies);
+        return theMovies;
     }
 
 
