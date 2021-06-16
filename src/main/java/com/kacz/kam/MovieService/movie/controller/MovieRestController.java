@@ -43,6 +43,11 @@ public class MovieRestController {
         return ResponseEntity.ok(movieService.changeAvailable(id));
     }
 
+    @PutMapping("/movies/{id}/false")
+    public ResponseEntity<Movie> changeNotAvailable(@PathVariable Long id) {
+        return ResponseEntity.ok(movieService.changeNotAvailable(id));
+    }
+
     @DeleteMapping("/movies/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id){
         movieService.deleteById(id);

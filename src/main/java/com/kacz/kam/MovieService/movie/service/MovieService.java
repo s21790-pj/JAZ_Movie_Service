@@ -54,6 +54,16 @@ public class MovieService {
         }
     }
 
+    public Movie changeNotAvailable(Long id) {
+        Optional<Movie> booleanMovie = movieRepository.findById(id);
+        if(booleanMovie.isPresent()) {
+            booleanMovie.get().setAvailable(false);
+            return movieRepository.save(booleanMovie.get());
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
     public void deleteById(Long id){
         movieRepository.deleteById(id);
     }
